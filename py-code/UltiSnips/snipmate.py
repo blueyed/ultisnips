@@ -49,7 +49,7 @@ def convert_snippet_lines(name, lines):
             continue
 
         if line[:1] == "#":
-            # first col comments are always outside of snipets, so this comment
+            # first col comments are always outside of snippets, so this comment
             # belongs to the following snippet:
             if (scope['state'] == "in_snippet"):
                 end_snippet()
@@ -70,7 +70,8 @@ def convert_snippet_lines(name, lines):
                 scope['state'] = "in_snippet"
 
         if scope['state'] == "in_snippet":
-            scope['snippet'] += line[len(whitespace):]
+            if line == "\n": scope['snippet'] += "\n"
+            else: scope['snippet'] += line[len(whitespace):]
 
     end_snippet()
 
