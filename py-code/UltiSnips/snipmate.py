@@ -70,6 +70,7 @@ def convert_snippet_lines(name, lines):
                 scope['state'] = "in_snippet"
 
         if scope['state'] == "in_snippet":
+            line = content = re.sub("{VISUAL}", "${VISUAL}", line)
             if line == "\n": scope['snippet'] += "\n"
             else: scope['snippet'] += line[len(whitespace):]
 
