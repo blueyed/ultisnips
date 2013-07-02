@@ -35,6 +35,8 @@ let s:c['MappingsToIgnore'] = get(s:c, 'MappingsToIgnore', [])
 " possible matches? Eg foo will be completed to foobar snippet name then
 let s:c['CompletionMenu'] = get(s:c, 'CompletionMenu', 1)
 
+let s:c['empty_lines_add_indent'] = get(s:c, 'empty_lines_add_indent', 1)
+
 " A list of directory names that are searched for snippets.
 " Why is this necessary?
 " let s:c['SnippetDirectories'] = get(s:c, 'SnippetDirectories', [ "UltiSnips" ] )

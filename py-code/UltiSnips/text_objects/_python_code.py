@@ -87,6 +87,9 @@ class SnippetUtil(object):
                     indent = ""
             indent = self._ind.spaces_to_indent(indent)
 
+        if vim.eval("g:UltiSnips.empty_lines_add_indent") != "1" and line == "":
+            indent = ""
+
         return indent + line
 
     def reset_indent(self):
