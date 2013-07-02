@@ -135,6 +135,7 @@ fun! s:c.Py(command)
       try
         " try python3
         py3 import vim; vim.command('let g:UltiSnips.PyCommand = "py3 "')
+        if !has_key(s:c, 'PyCommand') | throw "silent failure? Why does it happen?" | endif
       catch /.*/ 
         try
           " try python2
