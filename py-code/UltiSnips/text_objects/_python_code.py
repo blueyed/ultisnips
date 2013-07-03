@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-import os
+import os, vim
 from collections import namedtuple
 
 import UltiSnips._vim as _vim
