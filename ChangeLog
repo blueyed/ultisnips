@@ -1,3 +1,14 @@
+	Marcs fork
+	- introduce empty_lines_add_indent
+	- deactivated / deprecate UltiSnipsAddFiletypes
+	- many cahnges made by Marc Weber. The main goal is to make the whole
+	  thing more "functional", thus have a fun returning snippet files which
+	  are then loaded (and cached), implement Vim completion to find a
+	  matching snippet, make triggers completable if you have only typed
+	  some character of the trigger, improve the snippets converter, make
+	  UltiSnips load snippet files on the fly, more testing and debugging
+	  has to be done - works for me ..
+
 version 3beta: 
 	There are su many changes and maybe we'll not be comptabile anymore
 	Thus consider bumping version to 3

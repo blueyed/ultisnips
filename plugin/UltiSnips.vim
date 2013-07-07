@@ -166,7 +166,7 @@ command! -nargs=? UltiSnipsEdit :call call(s:c.ChooseSnippetFileToEdit,[<q-args>
 
 " Global Commands {{{
 function! UltiSnipsAddFiletypes(filetypes)
-    call s:c.Py("UltiSnips_Manager.add_buffer_filetypes('" . a:filetypes . ".all')")
+    echom "UltiSnipsAddFiletypes is deprecated, which snippets are used is determined by a function returning snippet files now"
     return ""
 endfunction
 command! -nargs=1 UltiSnipsAddFiletypes :call UltiSnipsAddFiletypes(<q-args>)
