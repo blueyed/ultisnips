@@ -44,7 +44,9 @@ def convert_snippet_lines(name, lines):
             if not snippet_info:
                 err("Warning: Malformed snippet")
             else:
-                scope['retval'] += 'snippet %s "%s"' % (snippet_info.group(1), snippet_info.group(2) if snippet_info.group(2) else snippet_info.group(1)) + "\n"
+                # replace " by empty because UltiSnips does not support snipppet Dir[".."], quoting by \ does not work
+                label =  (snippet_info.group(2) if snippet_info.group(2) else snippet_info.group(1)).replace("\"","")
+                scope['retval'] += 'snippet %s "%s"' % (snippet_info.group(1), label ) + "\n"
                 scope['state'] = "get_ind"
             continue
 
