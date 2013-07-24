@@ -3,13 +3,13 @@ if !exists('g:UltiSnips') | let g:UltiSnips = {} | endif | let s:c = g:UltiSnips
 let s:did_setup = 0
 
 " <sfile> does not work inside functions :(
-let s:py_code = expand("<sfile>:h:h").'/py-code'
+let s:c.py_code = expand("<sfile>:h:h").'/py-code'
 
 fun! UltiSnips#Setup()
   if !s:did_setup
     " Expand our path
     call s:c.Py("import vim, os, sys")
-    call s:c.Py("sys.path.append(\"".escape(s:py_code,'"')."\")")
+    call s:c.Py("sys.path.append(vim.eval('g:UltiSnips.py_code'))")
     call s:c.Py("from UltiSnips import UltiSnips_Manager")
     call s:c.Py("UltiSnips_Manager.expand_trigger = vim.eval('g:UltiSnipsExpandTrigger')")
     call s:c.Py("UltiSnips_Manager.forward_trigger = vim.eval('g:UltiSnipsJumpForwardTrigger')")
