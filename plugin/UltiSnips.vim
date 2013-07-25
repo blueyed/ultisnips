@@ -133,13 +133,14 @@ fun! s:c.Py(command)
     if !has_key(s:c, 'PyCommand')
       " try to detect working python version
       try
-        " try python3
-        py3 import vim; vim.command('let g:UltiSnips.PyCommand = "py3 "')
+      " try python2 first
+        py import vim; vim.command('let g:UltiSnips.PyCommand = "py "')
         if !has_key(s:c, 'PyCommand') | throw "silent failure? Why does it happen?" | endif
       catch /.*/ 
         try
-          " try python2
-          py import vim; vim.command('let g:UltiSnips.PyCommand = "py "')
+          " try python3
+          py3 import vim; vim.command('let g:UltiSnips.PyCommand = "py3 "')
+          echoe "UltiSnips py3 support might be broken!"
         catch /.*/ | endtry
       endtry
     endif
