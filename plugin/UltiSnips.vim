@@ -7,11 +7,9 @@
 "   directory above this file.
 " }}}
 
-" this kind of guard always annoys me .
-" if exists('did_UltiSnips_vim') || &cp || version < 700
-"    finish
-" endif
-if &compatible | echoe "UltiSnips requires :set nocompatible" | finish | endif
+" don't finish, because you'll get other annoying messages about missing .Py
+" then
+if &compatible | echoe "UltiSnips requires :set nocompatible - you should have it set for many reasons" | endif
 
 " bind g:UltiSnips to local name s:c for convenience
 if !exists('g:UltiSnips') | let g:UltiSnips = {} | endif | let s:c = g:UltiSnips
