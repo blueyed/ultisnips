@@ -96,6 +96,9 @@ endif
 " expand snippet. Note: expansion and forward jumping can be the smae trigger
 let s:c.ExpandTrigger = get(s:c, 'ExpandTrigger', "<tab>")
 
+" should be named "show_snippets_then_expand_trigger"
+" Now that CompletionMenu works and is enabled by default you may no longer
+" need this.
 let s:c.ListSnippets = get(s:c, 'ListSnippets', "<c-tab>")
 
 " jump in snippet to next/previous placeholder
@@ -179,8 +182,10 @@ function! UltiSnips_MapKeys()
     " assign ListSnippets first, so that ExpandTrigger and JumpForwardTrigger
     " override it - they are more important. Because CompletionMenu exists now
     " ListSnippets is no longer mandatory
-    exec "inoremap <silent> " . s:c.ListSnippets . " <C-R>=UltiSnips#SetupM('', 'list_snippets()')<cr>"
-    exec "snoremap <silent> " . s:c.ListSnippets . " <Esc>:call UltiSnips#SetupM('', 'list_snippets()')<cr>"
+    if s:c.ListSnippets != ""
+        exec "inoremap <silent> " . s:c.ListSnippets . " <C-R>=UltiSnips#SetupM('', 'list_snippets()')<cr>"
+        exec "snoremap <silent> " . s:c.ListSnippets . " <Esc>:call UltiSnips#SetupM('', 'list_snippets()')<cr>"
+    endif
 
     if g:UltiSnipsExpandTrigger == g:UltiSnipsJumpForwardTrigger
         exec "inoremap <silent> " . s:c.ExpandTrigger . " <C-R>=UltiSnips#SetupM('c', 'expand_or_jump()')<cr>"
