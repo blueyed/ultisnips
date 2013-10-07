@@ -164,9 +164,9 @@ There are several variables associated with the UltiSnipsEdit command.
                                                         *g:UltiSnipsEditSplit*
 g:UltiSnipsEditSplit        Defines how the edit window is open. Possible
                             values:
-                            |normal|         Default. Opens in the current window.
-                            |horizontal|     Splits the window horizontally.
-                            |vertical|       Splits the window vertically.
+                            |normal|         deprecated, instead use e
+                            |horizontal|     deprecated, instead use split
+                            |vertical|       deprecated, instead use vsplit
 
                                                         *g:UltiSnipsSnippetsDir*
 g:UltiSnipsSnippetsDir

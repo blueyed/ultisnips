@@ -74,9 +74,14 @@ let s:c.snipmate_ft_filter = get(s:c, 'snipmate_ft_filter', {
 " }}}
 
 " UltiSnipsEdit will use this variable to decide if a new window
-" is opened when editing. default is "normal", allowed are also
-" "vertical", "horizontal"
-let s:c['EditSplit'] = get(s:c, 'EditSplit', "normal" )
+" is opened when editing. default is "e", allowed are also
+" "split", "vpslit"
+let s:c['EditSplit'] = get(s:c, 'EditSplit', "e" )
+let s:old_to_new = {'normal': 'e', 'vertical': 'vsplit', 'horizontal': 'sp'}
+if has_key(s:old_to_new, s:c.EditSplit)
+  let s:c.EditSplit = s:old_to_new[s:c.EditSplit]
+endif
+
 
 let s:c['debug_snipmate_conversion'] = get(s:c, 'debug_snipmate_conversion', 0)
 

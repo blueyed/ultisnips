@@ -81,9 +81,8 @@ fun! UltiSnips#ChooseSnippetFileToEditDefaultImplementation(filetype)
 
   let all = exists + notExists
   let select = tlib#input#List('mi', 'select files to be opened in splits', all)
-  " TODO: honor EditSplit
   for idx in select
-    exec 'sp '.fnameescape(substitute(all[idx - 1], '[^:]*:','',''))
+    exec s:c.EditSplit.' '.fnameescape(substitute(all[idx - 1], '[^:]*:','',''))
   endfor
 endf
 
