@@ -204,6 +204,10 @@ The "extends foo" syntax causes errors. The fix is to
 I'm sorry about this, probably this is "won't fix" because it would take too
 much time.
 
+- This fork does not tell YouCompleteMe about available snippets
+  If its very important to you help me fix it
+
+
 There are probably more. Also see snipmate-merge-todo
 
 ==============================================================================
