@@ -912,7 +912,8 @@ class SnippetManager(object):
 
         if len(self._errors) > 0:
             # quoting should be accurate enough hopefully ..
-            print >> sys.stderr, "There are snippet errors, use :cope to show them %d" % len(self._errors)
+            sys.stderr.write
+            sys.stderr.write("There are snippet errors, use :cope to show them %d\n" % len(self._errors)
             vim.command('call setqflist(%s)' % json.dumps(self._errors))
             # vim.command('cope')
 
@@ -1034,7 +1035,7 @@ class SnippetManager(object):
         # vim.command('sp snippets-names')
         for ss in sources:
             for snippet in ss.snippets():
-                print snippet
+                sys.stdout.write("%s\n" % snippet)
                 # vim.current.buffer.append(snippet.__repr__)
 
 
