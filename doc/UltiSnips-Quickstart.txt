@@ -27,7 +27,7 @@ CONTENTS:
 
 bugs:
 file against github.com/MarcWeber/ultisnips unless you're sure they also
-happen on the [parent_ultisnips] project. 
+happen on the [parent_ultisnips] project.
 Then use [SirVer's bugtracker]
 
 help:
@@ -49,14 +49,36 @@ available
 ==============================================================================
 3. SETUP / CONFIGURATION / how does this fork work ?
 
-Which snippets are available? ~
-You implicitely tell UltiSnips which paths to look for snippets in.
-default implementation is a VimL function 
-called SnippetFilesForCurrentExpansionDefaultImplementation
-but you can also provide a python implementation instead.
+Which snippets are available ? ~
+None by default. I recommend installing github.com/honza/vim-snippets
+which contains snipmate snippets and a copy of SirVer's UltiSnips directory
+or copying the UltiSnips directory from SirVer's repository. SirVer's
+UltiSnips directory is upstream till he joins vim-snippets which I would
+highly appreciate.
 
-Snippet files are reloaded lazily as needed automatically (eg when timestamp of a
-snippet file changes). While loading snipmate snippets some errors may happen.
+How does UltiSnips find snippets? ~
+Rough reply: It knowsn about your snippets if you set &rtp to contain
+the snippets and UltiSnips directories. Thus installing a plugin
+such as github/honza/vim-snippets should be enough.
+
+Then it depends on filetype and *_ft_filter settings which of those files get
+loaded.
+
+Eg when editing a filetype html you can tell UltiSnips to load
+1) UltiSnips/html.snippets
+2) UltiSnips/javascript.snippets
+3) snipmate-snippets/javascript.snippets
+in any runtimepath.
+
+If you want to explore all details read the default VimL function
+SnippetFilesForCurrentExpansionDefaultImplementation.
+You can either provide your own function, or override the python function
+calling the VimL function.
+
+Snippet files are loaded as needed needed and reloaded automatically if their
+file modification timestamp changes.
+While loading snipmate snippets some errors may happen especially when
+translating snipmate files.
 Then quickfix is populated so that you can explore the cause fast (:cope).
 For details See doc/UltiSnips.txt section "3.3 Snippet Search Path".
 
@@ -81,26 +103,41 @@ For details See doc/UltiSnips.txt section "3.3 Snippet Search Path".
 
 
     " == UltiSnips snippets ==
-    " Because I want to use the snippet snippets 'default' does not load
-    " filetype.snippets snippet files. 'all' reperesents the snippets like box
-    " which are meant to be present always. (snipmate was using _ for this)
-    " For cpp, already all snippets have been converted to UltiSnips, so use
-    " those - but only the one provided by my ~/.vim direcotry.
+    " Because I want to use the snipmate snippets 'default' does not load
+    " filetype.snippets snippet files.
+    " SirVer called the snippets to be present for all filetypes "all".
+    " So this fork follows his convention. Compare with _ which is used by
+    " snipmate but means the same
+    "
+    " Now the default implementation reads &filetype, look up the key in the
+    " dictionary and falls back to the default entry if there is no filetype
+    " specific entry.
+    "
+    " Thus if you're editing a cpp file ['cpp'] means that
+    " &rtp/UltiSnips/cpp.snippets and ..../all.snippets will be loaded if
+    " UltiSnips directory happens to be in your [._].vim directory only.
+    "
+    " For all other filetypes 'default' applies which loads all.snippets
+    " from all &rtp/UltiSnips directories.
     let g:UltiSnips.UltiSnips_ft_filter = {
                 \ 'default' : {'filetypes': ['all'] },
                 \ 'all' : {'filetypes': ['all'] },
-                \ 'cpp' : {'filetypes': ['cpp'], 'dir-regex': '[._]vim/UltiSnips$' },
+                \ 'cpp' : {'filetypes': ['cpp', 'all'], 'dir-regex': '[._]vim/UltiSnips$' },
                 \ }
-    " you may want to replace ['all'] by ['all','FILETYPE'] in order to load
-    " all snippets - If you load all snipmate-snippets and UltiSnips snippets
-    " you may also want to set always_use_first_snippet configuration option to
-    1 like this:
+    " in the 'default' case the special word FILETYPE will be replaced by
+    " &filetype, thus ['all','FILETYPE'] will load &rtp/html.snippets if
+    " you're editing html files.
+
+    " choices could be nasty, never show them
     let g:UltiSnips.always_use_first_snippet = 1
 
     " == snipmate snippets ==
-    " For any other filetype do what I used in the past: snipmate-snippets
-    " repo (must be added to runtimepath)
-    " _ represents snipmate snippets which are present always
+    " _.snippets are meant to be snippets to be loaded always which is why
+    " they are contained in all cases
+    " This is pretty much the same as above:
+    " * For html, xhtml snipmate &rtp/snippets/javascriptsnippets get loaded
+    " * For cpp don't load any snipmate &rtp/snippets - because in this
+    " example UltiSnips snippets are preferred
     let g:UltiSnips.snipmate_ft_filter = {
                 \ 'default' : {'filetypes': ["FILETYPE", "_"] },
                 \ 'html'    : {'filetypes': ["html", "javascript", "_"] },
@@ -108,7 +145,7 @@ For details See doc/UltiSnips.txt section "3.3 Snippet Search Path".
                 \ 'cpp'    : {'filetypes': [] },
                 \ }
 
-    " Please mind that 
+    " Of course you want to adjust this to your own liking
 
 ==============================================================================
 4. FAQ
