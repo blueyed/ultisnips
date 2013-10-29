@@ -913,7 +913,7 @@ class SnippetManager(object):
         if len(self._errors) > 0:
             # quoting should be accurate enough hopefully ..
             sys.stderr.write
-            sys.stderr.write("There are snippet errors, use :cope to show them %d\n" % len(self._errors)
+            sys.stderr.write("There are snippet errors, use :cope to show them %d\n" % len(self._errors))
             vim.command('call setqflist(%s)' % json.dumps(self._errors))
             # vim.command('cope')
 
