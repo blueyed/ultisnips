@@ -45,8 +45,9 @@ endf
 
 " editing snippets {{{
 
-" craete a list of files which could be valid snippet files according to
-" ft_filter. Its used by UltiSnips#ChooseSnippetFileToEditDefaultImplementation()
+" Create a list of files which could be valid snippet files according to
+" ft_filter.
+" It is used by UltiSnips#ChooseSnippetFileToEditDefaultImplementation().
 fun! UltiSnips#SnippetFilesByRuntimepathEditable(type_dir, filetype)
   let result = []
 
@@ -63,7 +64,12 @@ fun! UltiSnips#SnippetFilesByRuntimepathEditable(type_dir, filetype)
   return result
 endf
 
-" this requires tlib
+" Default implementation for UltiSnips.SnippetFiles (edit mode).
+" NOTE: the command UltiSnipsEdit, which calls this by default
+" (via s:c.ChooseSnippetFileToEdit) may not pass the filetype arg.
+" The default is documented to be the current filetype.
+"
+" This requires tlib.
 fun! UltiSnips#ChooseSnippetFileToEditDefaultImplementation(filetype)
   try
           call tlib#input#List('mi', '', [])
@@ -100,7 +106,7 @@ fun! UltiSnips#SnippetFilesByRuntimepath(dir)
 endf
 
 " default implementation. If you don't like it you can override it
-" (or use your own python implemenation, see SnippetFilesForCurrentExpansion
+" (or use your own python implementation, see SnippetFilesForCurrentExpansion
 " configuration option
 " returns such:
 " {'snipmate': [ 'foo.snippets', 'bar.snippets' ], 'UltiSnips' : ['z.snippets'] }

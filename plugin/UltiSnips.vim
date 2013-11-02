@@ -41,10 +41,10 @@ let s:c['empty_lines_add_indent'] = get(s:c, 'empty_lines_add_indent', 1)
 
 " Which snippet files to use ? {{{1
 " The default implementation is written in VimL and called
-" SnippetFilesForCurrentExpansionDefaultImplementation
-" if you want to customize it just assign your own function
-" If you want to do it in python call it from within a Vim function
-" This way you can do both: define it lazily and call it
+" SnippetFilesForCurrentExpansionDefaultImplementation.
+" If you want to customize it just assign your own function.
+" If you want to do it in python call it from within a Vim function.
+" This way you can do both: define it lazily and call it.
 let s:c.SnippetFilesForCurrentExpansion = get(s:c, 'SnippetFiles', 'UltiSnips#SnippetFilesForCurrentExpansionDefaultImplementation' )
 
 let s:c.ChooseSnippetFileToEdit = get(s:c, 'SnippetFiles', 'UltiSnips#ChooseSnippetFileToEditDefaultImplementation' )
@@ -52,7 +52,7 @@ let s:c.ChooseSnippetFileToEdit = get(s:c, 'SnippetFiles', 'UltiSnips#ChooseSnip
 " The default implementation first gathers all .snippet files found in any
 " location matching such a glob pattern: &runtimepath/UltiSnips/*.snippets
 " Thus any plugin in your &runtimepath can provide snippets.
-" Then the the list of all snippet files is filtered by filetype and regular
+" Then the list of all snippet files is filtered by filetype and regular
 " expression matching the directory of the file. This way you can easily
 " choose to use your own snippets only by setting ft_filter to this:
 " { 'default': {'filetypes': ["FILETYPE"], 'dir-regex': '[._]vim/UltiSnips$' } }
