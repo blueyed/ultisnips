@@ -169,7 +169,7 @@ endf
 " Global Commands {{{
 
 " edit snippets, default of current file type or the specified type
-command! -nargs=? UltiSnipsEdit :call call(s:c.ChooseSnippetFileToEdit,[<q-args>])
+command! -nargs=? UltiSnipsEdit :call call(s:c.ChooseSnippetFileToEdit,empty([<f-args>]) ? [&filetype] : [<f-args>] )
 
 " Global Commands {{{
 function! UltiSnipsAddFiletypes(filetypes)
