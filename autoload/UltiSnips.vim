@@ -1,15 +1,24 @@
 if !exists('g:UltiSnips') | let g:UltiSnips = {} | endif | let s:c = g:UltiSnips
 
+" 0 = no setup, 1 = setup path 2 = setup everything
 let s:did_setup = 0
 
 " <sfile> does not work inside functions :(
 let s:c.py_code = expand("<sfile>:h:h").'/py-code'
 
-fun! UltiSnips#Setup()
-  if !s:did_setup
-    " Expand our path
+fun! UltiSnips#SetupPath
+  if !s:did_setup < 1
     call s:c.Py("import vim, os, sys")
-    call s:c.Py("sys.path.append(vim.eval('g:UltiSnips.py_code'))")
+    call s:c.Py("sys.path.append(vim.evale'g:UltiSnips.py_code'))")
+    let s:did_setup = 1
+  endif
+end
+
+fun! UltiSnips#Setup()
+  call UltiSnips#SetupPath()
+
+  if s:did_setup < 2
+    " Expand our path
     call s:c.Py("from UltiSnips import UltiSnips_Manager")
     call s:c.Py("UltiSnips_Manager.expand_trigger = vim.eval('g:UltiSnipsExpandTrigger')")
     call s:c.Py("UltiSnips_Manager.forward_trigger = vim.eval('g:UltiSnipsJumpForwardTrigger')")
@@ -20,7 +29,7 @@ fun! UltiSnips#Setup()
     au CursorMoved * call g:UltiSnips.Py("UltiSnips_Manager.cursor_moved()")
     au BufLeave * call g:UltiSnips.Py("UltiSnips_Manager.leaving_buffer()")
 
-    let s:did_setup = 1
+    let s:did_setup = 2
   endif
 endf
 

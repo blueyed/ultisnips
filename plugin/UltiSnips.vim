@@ -35,6 +35,12 @@ let s:c['CompletionMenu'] = get(s:c, 'CompletionMenu', 1)
 
 let s:c['empty_lines_add_indent'] = get(s:c, 'empty_lines_add_indent', 1)
 
+" Set to 1 to make tools like YouCompleteMe find UltiSnips which tries to
+" import the python classes
+" I don't like early loading of Python always because it could interfer with
+" other plugins or slow down Vim startup
+let s:c['setup_py_path_early'] = get(s:c, 'load_early', 0)
+
 " A list of directory names that are searched for snippets.
 " Why is this necessary?
 " let s:c['SnippetDirectories'] = get(s:c, 'SnippetDirectories', [ "UltiSnips" ] )
@@ -215,5 +221,9 @@ call UltiSnips_MapKeys()
 augroup UltiSnips
     autocm BufRead,BufNewFile snippets/*.snippets set filetype=snippets
 augroup end
+
+if s:c['setup_py_path_early']
+  call UltiSnips#SetupPath()
+endif
 
 " vim: ts=8 sts=4 sw=4 expandtab
