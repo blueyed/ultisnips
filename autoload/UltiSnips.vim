@@ -6,13 +6,13 @@ let s:did_setup = 0
 " <sfile> does not work inside functions :(
 let s:c.py_code = expand("<sfile>:h:h").'/py-code'
 
-fun! UltiSnips#SetupPath
-  if !s:did_setup < 1
+fun! UltiSnips#SetupPath()
+  if s:did_setup < 1
     call s:c.Py("import vim, os, sys")
-    call s:c.Py("sys.path.append(vim.evale'g:UltiSnips.py_code'))")
+    call s:c.Py("sys.path.append(vim.eval('g:UltiSnips.py_code'))")
     let s:did_setup = 1
   endif
-end
+endf
 
 fun! UltiSnips#Setup()
   call UltiSnips#SetupPath()
