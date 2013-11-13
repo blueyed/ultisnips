@@ -250,14 +250,14 @@ class _SnippetsFileParser(object):
                     # be detected?
                     for e in tail.split(','):
                         filename = os.path.join(os.path.dirname(self._fn), "%s.snippets" % e.strip())
-                        p = _SnippetsFileParser(self._ft, filename, self._sm.snippet_error, None)
+                        p = _SnippetsFileParser(self._ft, filename, self._error_fun, None)
                         self.snippets.extend(p.snippets)
                 else:
                     self._error("'extends' without file types")
             elif head in ("snippet", "global"):
                 self._parse_snippet()
             elif head == "clearsnippets":
-                self._sm.clear_snippets(tail.split(), self._ft)
+                UltiSnips_Manager.clear_snippets(tail.split(), self._ft)
             elif head and not head.startswith('#'):
                 self._error("Invalid line %r" % self._line().rstrip())
                 break
